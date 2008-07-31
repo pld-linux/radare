@@ -1,15 +1,16 @@
-Summary:	Advanced commandline hexadecimal editor
+Summary:		Advanced commandline hexadecimal editor
 Summary(pl.UTF-8):	Zaawansowany edytor szesnastkowy obsługiwany z linii poleceń
-Name:		radare
-Version:	0.9.7
-Release:	0.1
-License:	GPL
-Group:		Applications
-Source0:	http://radare.nopcode.org/get/%{name}-%{version}.tar.gz
-# Source0-md5:	f346d90cc0fec433b16f646b6c2af091
-Patch0:		%{name}-paths.patch
-URL:		http://radare.nopcode.org/
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Name:			radare
+Version:		0.9.9
+Release:		0.1
+License:		GPL
+Group:			Applications
+Source0:		http://radare.nopcode.org/get/%{name}-%{version}.tar.gz
+# Source0-md5:	d818eaa0509355b969231683bccfdf99
+Patch0:			%{name}-paths.patch
+URL:			http://radare.nopcode.org/
+BuildRequires:	readline-devel
+BuildRoot:		%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The project aims to create a complete free *nix-like toolchain for working with binary files.
@@ -27,14 +28,14 @@ wszystkie rodzaje danych jak pliki. Procesy, pliki, dyski, pamięć... Ta elasty
 pozwala na łatwe tworzenie skryptów w językach takich jak Lua, Lisp, Perl, Vala.
 
 %prep
+#%setup -q -n %{name}-%{release_date}
 %setup -q
-%patch0
+%patch0 -p0
 
 %build
-%configure
-
-%{__make} \
-	LDFLAGS="-ldl"
+# Won't link with --as-needed flag, so we run plain ./configure here
+./configure --prefix=/usr --exec-prefix=/usr
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -46,6 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_docdir}/%{name} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+mv $RPM_BUILD_ROOT/usr/man $RPM_BUILD_ROOT%{_mandir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -55,6 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/libfdsniff.so
+%{_libdir}/libusbsniff.so
 %{_libdir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man1/*
