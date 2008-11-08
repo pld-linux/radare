@@ -1,0 +1,19 @@
+diff -Nurwa radare-1.0b-v/configure radare-1.0b/configure
+--- radare-1.0b-v/configure	2008-09-17 11:14:03.000000000 +0200
++++ radare-1.0b/configure	2008-11-08 12:39:58.941125060 +0100
+@@ -534,13 +534,13 @@
+ echo "checking for lua libs... "
+ check_library HAVE_LIB_LUA lua 0
+ 
+-check_library HAVE_LIB_LUA5_1 lua5.1 0
++check_library HAVE_LIB_LUA5_1 lua51 0
+ 
+ 	if [ "${HAVE_LIB_LUA}" = 1 ]; then
+ 		LUA_LIBS=-llua
+ 	fi
+ 	if [ "${HAVE_LIB_LUA5_1}" = 1 ]; then
+-		LUA_LIBS=-llua5.1
++		LUA_LIBS=-llua51
+ 	fi
+ 
+  else

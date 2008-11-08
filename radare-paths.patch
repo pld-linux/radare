@@ -1,20 +1,22 @@
-diff -Nurwa ../radare-0.9.9-vanilla/libexec/Makefile ../radare-0.9.9/libexec/Makefile
---- ../radare-0.9.9-vanilla/libexec/Makefile	2008-06-21 14:24:05.000000000 +0200
-+++ ../radare-0.9.9/libexec/Makefile	2008-07-18 10:45:19.116026840 +0200
-@@ -21,11 +21,11 @@
- 	@perl miss.pl
+diff -Nurwa radare-1.0b-v/gui/Makefile radare-1.0b/gui/Makefile
+--- radare-1.0b-v/gui/Makefile	2008-07-21 12:27:56.000000000 +0200
++++ radare-1.0b/gui/Makefile	2008-11-08 15:46:56.921804588 +0100
+@@ -27,12 +27,12 @@
  
  install:
--	${INSTALL_DIR} ${DATADIR}
--	${INSTALL_DIR} ${DATADIR}/radare
--	${INSTALL_DIR} ${DATADIR}/radare/rsc
--	rm -rf ${DATADIR}/radare/rsc/*
--	for A in ${FILES} ; do cp $$A ${DATADIR}/radare/rsc ; done
-+	${INSTALL_DIR} ${DESTDIR}${DATADIR}
-+	${INSTALL_DIR} ${DESTDIR}${DATADIR}/radare
-+	${INSTALL_DIR} ${DESTDIR}${DATADIR}/radare/rsc
-+	rm -rf ${DESTDIR}${DATADIR}/radare/rsc/*
-+	for A in ${FILES} ; do cp $$A ${DESTDIR}${DATADIR}/radare/rsc ; done
+ 	${E} 'Installing gradare'
+-	${Q}${INSTALL_DIR} ${PREFIX}/bin
+-	${Q}${INSTALL_PROGRAM} ${BIN} ${PREFIX}/bin
+-	-${Q}rm -rf ${DATADIR}/radare/gradare/*
+-	${Q}mkdir -p ${DATADIR}/radare/gradare/
+-	${Q}cp -rf grsc/* ${DATADIR}/radare/gradare/
+-	-${Q}chmod +x ${DATADIR}/radare/gradare/Shell
++	${Q}${INSTALL_DIR} ${DESTDIR}${PREFIX}/bin
++	${Q}${INSTALL_PROGRAM} ${BIN} ${DESTDIR}${PREFIX}/bin
++	-${Q}rm -rf ${DESTDIR}${DATADIR}/radare/gradare/*
++	${Q}mkdir -p ${DESTDIR}${DATADIR}/radare/gradare/
++	${Q}cp -rf grsc/* ${DESTDIR}${DATADIR}/radare/gradare/
++	-${Q}chmod +x ${DESTDIR}${DATADIR}/radare/gradare/Shell
  
- files:
- 	@echo ${FILES}
+ clean:
+ 	${E} 'Cleaning gui'
