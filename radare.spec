@@ -4,24 +4,27 @@
 Summary:		Advanced commandline hexadecimal editor
 Summary(pl.UTF-8):	Zaawansowany edytor szesnastkowy obsługiwany z linii poleceń
 Name:			radare
-Version:		1.0b
+Version:		1.0
 Release:		0.1
 License:		GPL
 Group:			Applications
 Source0:		http://radare.nopcode.org/get/%{name}-%{version}.tar.gz
-# Source0-md5:	68175e48964ee07ca58a16a8137f20d9
+# Source0-md5:	0e4b2f114fee364c0a7c60de81b5ccb9
 %if %{with doc}
 Source1:		http://radare.nopcode.org/get/%{name}.pdf
 # Source1-md5:	cb8ccb676e859680467ec6e058738a50
 %endif
-Patch0:			%{name}-paths.patch
-Patch1:			%{name}-lua51.patch
-Patch2:			%{name}-buildfails.patch
+Patch0:			%{name}-lua51.patch
 URL:			http://radare.nopcode.org/
+BuildRequires:	gtkdialog
 BuildRequires:	readline-devel
 BuildRequires:	vala >= 0.3.4
 BuildRequires:	lua51-devel
 BuildRequires:	libewf-devel
+BuildRequires:	libusb-devel
+BuildRequires:	vte-devel
+Suggests:		python
+Suggests:		ruby
 BuildRoot:		%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -53,11 +56,8 @@ Dokuemntacja dla radare.
 %endif
 
 %prep
-#%setup -q -n %{name}-%{release_date}
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 # Won't link with --as-needed flag, so we run plain ./configure here
@@ -87,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/libfdsniff.so
+%{_libdir}/libusbsniff.so
 %{_libdir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man1/*
