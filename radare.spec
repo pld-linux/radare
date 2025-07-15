@@ -57,7 +57,7 @@ Dokuemntacja dla radare.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 # Won't link with --as-needed flag, so we run plain ./configure here
